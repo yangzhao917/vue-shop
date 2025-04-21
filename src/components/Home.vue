@@ -13,69 +13,49 @@
           <i class="el-icon-setting" ></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="getPerson">个人信息</el-dropdown-item>
-            <el-dropdown-item command="loginout">退出</el-dropdown-item>
+            <el-dropdown-item command="loginout">退出登陆</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      <span>王小虎</span>
+      <span>{{username}}</span>
       </div>
     </el-header>
     <el-container>
       <!-- 侧边栏容器 -->
-      <el-aside>
+      <el-aside :width="isCollapse? '60px':'200px'">
+        <div class="home-menu-toggle-button" @click="toggleButton">|||</div>
         <!-- 侧边栏菜单区域 -->
         <el-menu
-          @open="handleOpen"
-          @close="handleClose"
-          background-color="#545c64" text-color="#fff"
-          active-text-color="#ffd04b">
-          <el-submenu index="1">
+         background-color="#B3C0D1"
+         active-text-color="#409EFF"
+         class="el-menu-vertical-demo"
+         @open="handleOpen"
+         @close="handleClose"
+         unique-opened
+         :collapse="isCollapse"
+         :collapse-transition="false"
+         router
+         >
+          <!-- 一级菜单 -->
+          <el-submenu :index="String(menus.path)" v-for="menus in menuList" :key="menus.id">
             <template slot="title">
               <i class="el-icon-location"></i>
-              <span>导航一</span>
+              <span>{{ menus.authName }}</span>
             </template>
-            <el-menu-item index="1-1">
-              <i class="el-icon-location"></i>
-              <span>选项1</span>
-            </el-menu-item>
-            <el-menu-item index="1-2">
-              <i class="el-icon-location"></i>
-              <span>选项2</span>
-            </el-menu-item>
-            <el-menu-item index="1-3">
-              <i class="el-icon-location"></i>
-              <span>选项3</span>
-            </el-menu-item>
-            <el-menu-item index="1-4">
-              <i class="el-icon-location"></i>
-              <span>选项4</span>
-            </el-menu-item>
-          </el-submenu>
-          <el-submenu index="2">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span>导航二</span>
-            </template>
-            <el-menu-item index="2-1">
-              <i class="el-icon-location"></i>
-              <span>选项1</span>
-            </el-menu-item>
-            <el-menu-item index="2-2">
-              <i class="el-icon-location"></i>
-              <span>选项2</span>
-            </el-menu-item>
-            <el-menu-item index="2-3">
-              <i class="el-icon-location"></i>
-              <span>选项3</span>
-            </el-menu-item>
-            <el-menu-item index="2-4">
-              <i class="el-icon-location"></i>
-              <span>选项4</span>
+            <!-- 二级菜单 -->
+            <el-menu-item :index="String(subMenu.path)" v-for="subMenu in menus.children" :key="subMenu.id">
+              <template slot="title">
+                <i class="el-icon-menu"></i>
+                <span>{{ subMenu.authName }}</span>
+              </template>
             </el-menu-item>
           </el-submenu>
         </el-menu>
       </el-aside>
       <el-container>
-        <el-main>Main</el-main>
+        <!-- 右侧内容主体 -->
+        <el-main>
+          <router-view></router-view>
+        </el-main>
       </el-container>
     </el-container>
     <el-footer style="height: 30px;">Footer</el-footer>
@@ -85,14 +65,15 @@
 <script>
 export default {
   data() {
-    const item = {
-      date: '2016-05-02',
-      name: '王小虎',
-      address: '上海市普陀区金沙江路 1518 弄'
-    };
     return {
-      tableData: Array(20).fill(item)
+      menuList: [],
+      isCollapse: false,
+      username: null
     };
+  },
+  created() {
+    this.getLoginUserName();
+    this.getMenuList();
   },
   methods: {
     loginout() {
@@ -120,6 +101,32 @@ export default {
     },
     handleClose(key, keyPath) {
       console.log(key, keyPath);
+    },
+    async getMenuList() {
+      // 用于处理 Promise，必须和 async 一起使用
+      await this.$http
+        .get('/menus', this.loginForm)
+        .then((resp) => {
+          const respStatus = resp.data.meta;
+          const respData = resp.data;
+          if (respStatus.status !== 200) {
+            return this.$message.error(respStatus.msg);
+          }
+          this.menuList = respData.data;
+          // console.log(respData.data);
+        })
+        .catch(() => {
+          this.$message.error('系统异常，请联系管理员');
+        });
+    },
+    getLoginUserName() {
+      const loginUser = window.sessionStorage.getItem('loginUser');
+      const lgoinUserObj = JSON.parse(loginUser);
+      this.username = lgoinUserObj.username;
+    },
+    // 切换菜单的折叠/展开
+    toggleButton() {
+      this.isCollapse = !this.isCollapse;
     }
   }
 };
@@ -159,7 +166,13 @@ export default {
   color: #333;
   text-align: center;
   line-height: 200px;
-  width: 200px;
+  .el-menu {
+    border-right: none;
+  }
+
+  .el-icon-menu {
+  margin-left: 45px;
+}
 }
 
 .el-main {
@@ -167,18 +180,6 @@ export default {
   color: #333;
   text-align: center;
   line-height: 160px;
-}
-
-// body > .el-container {
-//   margin-bottom: 40px;
-// }
-
-.el-container:nth-child(5) .el-aside, .el-container:nth-child(6) .el-aside {
-  line-height: 260px;
-}
-
-.el-container:nth-child(7) .el-aside {
-  line-height: 320px;
 }
 
 .el-container {
@@ -192,5 +193,13 @@ export default {
 
 .el-icon-arrow-down {
   font-size: 12px;
+}
+
+.home-menu-toggle-button {
+  line-height: 24px;
+  font-size: 10px;
+  text-align: center;
+  letter-spacing: 0.2rem;
+  cursor: pointer;
 }
 </style>

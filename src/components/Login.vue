@@ -27,8 +27,8 @@ export default {
     return {
       // 这是登陆表单的数据绑定对象
       loginForm: {
-        username: '',
-        password: ''
+        username: 'admin',
+        password: '123456'
       },
       // 这是表单的验证对象
       loginFormRules: {
@@ -73,6 +73,7 @@ export default {
 
             // 将登陆成功后的 token，保存到浏览器的 sessionStorage 中，因为 token 只在网站打开期间有效
             window.sessionStorage.setItem('token', respData.data.token);
+            window.sessionStorage.setItem('loginUser', JSON.stringify(respData.data));
 
             // 跳转到后台主页 /home
             this.$router.push('/home');
