@@ -5,12 +5,27 @@
       <!-- 头像区域 -->
       <div class="avator-box"><img src="../assets/logo.png" alt="" /></div>
       <!-- 登陆表单 -->
-      <el-form ref="loginFormRef" :rules="loginFormRules" :model="loginForm" label-width="0px" class="login-form">
+      <el-form
+        ref="loginFormRef"
+        :rules="loginFormRules"
+        :model="loginForm"
+        label-width="0px"
+        class="login-form"
+      >
         <el-form-item prop="username">
-          <el-input v-model="loginForm.username" placeholder="请输入用户名" prefix-icon="el-icon-user-solid" />
+          <el-input
+            v-model="loginForm.username"
+            placeholder="请输入用户名"
+            prefix-icon="el-icon-user-solid"
+          />
         </el-form-item>
         <el-form-item prop="password">
-          <el-input v-model="loginForm.password" placeholder="请输入密码" prefix-icon="fa fa-lock" show-password />
+          <el-input
+            v-model="loginForm.password"
+            placeholder="请输入密码"
+            prefix-icon="fa fa-lock"
+            show-password
+          />
         </el-form-item>
         <el-form-item class="login-form-btn">
           <el-button type="primary" @click="login">登陆</el-button>
@@ -44,7 +59,9 @@ export default {
             trigger: 'blur'
           }
         ],
-        password: [{ required: true, message: '密码不能为空', trigger: 'blur' }]
+        password: [
+          { required: true, message: '密码不能为空', trigger: 'blur' }
+        ]
       }
     };
   },
@@ -73,7 +90,10 @@ export default {
 
             // 将登陆成功后的 token，保存到浏览器的 sessionStorage 中，因为 token 只在网站打开期间有效
             window.sessionStorage.setItem('token', respData.data.token);
-            window.sessionStorage.setItem('loginUser', JSON.stringify(respData.data));
+            window.sessionStorage.setItem(
+              'loginUser',
+              JSON.stringify(respData.data)
+            );
 
             // 跳转到后台主页 /home
             this.$router.push('/home');

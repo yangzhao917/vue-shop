@@ -5,44 +5,56 @@
     <!-- 头部容器 -->
     <el-header>
       <div>
-        <img src="../assets/logo.png" style="width: 50px; height: 50px;" alt="">
+        <img
+          src="../assets/logo.png"
+          style="width: 50px; height: 50px"
+          alt=""
+        />
         <span>后台管理系统</span>
       </div>
-      <div style="text-align: right;">
+      <div style="text-align: right">
         <el-dropdown type="primary" @command="handlerUser">
-          <i class="el-icon-setting" ></i>
+          <i class="el-icon-setting"></i>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item command="getPerson">个人信息</el-dropdown-item>
             <el-dropdown-item command="loginout">退出登陆</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
-      <span>{{username}}</span>
+        <span>{{ username }}</span>
       </div>
     </el-header>
     <el-container>
       <!-- 侧边栏容器 -->
-      <el-aside :width="isCollapse? '60px':'200px'">
+      <el-aside :width="isCollapse ? '60px' : '200px'">
         <div class="home-menu-toggle-button" @click="toggleButton">|||</div>
         <!-- 侧边栏菜单区域 -->
         <el-menu
-         background-color="#B3C0D1"
-         active-text-color="#409EFF"
-         class="el-menu-vertical-demo"
-         @open="handleOpen"
-         @close="handleClose"
-         unique-opened
-         :collapse="isCollapse"
-         :collapse-transition="false"
-         router
-         >
+          background-color="#B3C0D1"
+          active-text-color="#409EFF"
+          class="el-menu-vertical-demo"
+          @open="handleOpen"
+          @close="handleClose"
+          unique-opened
+          :collapse="isCollapse"
+          :collapse-transition="false"
+          router
+        >
           <!-- 一级菜单 -->
-          <el-submenu :index="String(menus.path)" v-for="menus in menuList" :key="menus.id">
+          <el-submenu
+            :index="String(menus.path)"
+            v-for="menus in menuList"
+            :key="menus.id"
+          >
             <template slot="title">
               <i class="el-icon-location"></i>
               <span>{{ menus.authName }}</span>
             </template>
             <!-- 二级菜单 -->
-            <el-menu-item :index="String(subMenu.path)" v-for="subMenu in menus.children" :key="subMenu.id">
+            <el-menu-item
+              :index="String(subMenu.path)"
+              v-for="subMenu in menus.children"
+              :key="subMenu.id"
+            >
               <template slot="title">
                 <i class="el-icon-menu"></i>
                 <span>{{ subMenu.authName }}</span>
@@ -58,7 +70,7 @@
         </el-main>
       </el-container>
     </el-container>
-    <el-footer style="height: 30px;">Footer</el-footer>
+    <el-footer style="height: 30px">Footer</el-footer>
   </el-container>
 </template>
 
@@ -134,8 +146,8 @@ export default {
 
 <!-- scoped 范围只在这个单文件组件中生效，不加在整个项目中生效 -->
 <style lang="less" scoped>
-.el-header{
-  background-color: #B3C0D1;
+.el-header {
+  background-color: #b3c0d1;
   color: #333;
   text-align: center;
   display: flex;
@@ -157,12 +169,12 @@ export default {
 
 .el-footer {
   text-align: center;
-  background-color: #B3C0D1;
+  background-color: #b3c0d1;
   color: #333;
 }
 
 .el-aside {
-  background-color: #D3DCE6;
+  background-color: #d3dce6;
   color: #333;
   text-align: center;
   line-height: 200px;
@@ -171,12 +183,12 @@ export default {
   }
 
   .el-icon-menu {
-  margin-left: 45px;
-}
+    margin-left: 45px;
+  }
 }
 
 .el-main {
-  background-color: #E9EEF3;
+  background-color: #e9eef3;
   color: #333;
   text-align: center;
   line-height: 160px;
@@ -188,7 +200,7 @@ export default {
 
 .el-dropdown-link {
   cursor: pointer;
-  color: #409EFF;
+  color: #409eff;
 }
 
 .el-icon-arrow-down {
