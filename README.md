@@ -21,8 +21,6 @@
 
 ## 项目技术栈
 
-![](https://cdn.nlark.com/yuque/0/2025/png/26184762/1744904298233-874c37bd-0208-4f26-a8f5-3701a2c3023d.png)
-
 + Vue：项目脚手架；
 + Vue-router：Vue 路由；
 + Element-UI：前端组件库；
