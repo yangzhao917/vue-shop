@@ -4,7 +4,7 @@
 
 后端服务参考：[https://gitee.com/ji_pin_hui/vueShop-api-server](https://gitee.com/ji_pin_hui/vueShop-api-server)
 
-后端接口文档：/docs/api接口文档.md
+后端接口文档：docs/api接口文档.md
 
 ## 系统模块
 
@@ -28,13 +28,14 @@
 + Echarts：用于绘制图形化报表；
 
 ### 问题
-+ <font style="color:rgb(38, 38, 38);background-color:rgb(239, 246, 255);">Client does not support authentication protocol requested by server; consider upgrading MySQL client</font>
 
-<font style="color:rgb(38, 38, 38);background-color:rgb(239, 246, 255);">原因：</font><font style="color:rgb(64, 64, 64);">MySQL 8.0 默认使用 </font>`<font style="color:rgb(64, 64, 64);">caching_sha2_password</font>`<font style="color:rgb(64, 64, 64);"> 认证插件，而旧版客户端可能只支持 </font>`<font style="color:rgb(64, 64, 64);">mysql_native_password</font>`<font style="color:rgb(64, 64, 64);"> 认证方式。</font>
+- Client does not support authentication protocol requested by server; consider upgrading MySQL client
 
-<font style="color:rgb(64, 64, 64);">解决方案：</font>
+原因：MySQL 8.0 默认使用 caching_sha2_password 认证插件，而旧版客户端可能只支持 mysql_native_password 认证方式。
 
-```plain
+解决方案：
+
+```
 -- 连接到 MySQL 服务器
 mysql -u root -p
 
