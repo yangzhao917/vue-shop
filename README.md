@@ -27,35 +27,6 @@
 + Axios：用于发起网络请求；
 + Echarts：用于绘制图形化报表；
 
-## 项目初始化步骤
-
-![](https://cdn.nlark.com/yuque/0/2025/png/26184762/1744904535869-77fd76eb-23b2-44fe-81f4-c70a6dff52a7.png)
-
-### 脚手架创建项目
-
-```plain
-# 创建项目 vue-shop
-zhao@ZHAOdeMacBook-Pro front-end_project % mkdir vue-shop
-zhao@ZHAOdeMacBook-Pro front-end_project % cd vue-shop
-
-# 安装Vue脚手架
-zhao@ZHAOdeMacBook-Pro vue-shop % npm i @vue/cli
-
-# vue ui是 Vue3.x 版本以上才支持，vue2 需要通过vue create 来创建项目
-```
-
-
-## 登录/退出功能
-
-![](https://cdn.nlark.com/yuque/0/2025/png/26184762/1744910225149-581ccf84-7c62-4629-88c9-dfcbf36800e4.png)
-
-![](https://cdn.nlark.com/yuque/0/2025/png/26184762/1744910457656-701e0073-c7b8-45d3-9e57-3bb8f963d46a.png)
-
-:::info
-如果不存在跨域问题，使用 cookie 和 session；存在跨域问题使用 token。
-
-:::
-
 ### 问题
 + <font style="color:rgb(38, 38, 38);background-color:rgb(239, 246, 255);">Client does not support authentication protocol requested by server; consider upgrading MySQL client</font>
 
